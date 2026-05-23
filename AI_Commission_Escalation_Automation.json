@@ -1,0 +1,345 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3d2fa4f5-6358-4b21-8639-32749afcf356",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "30d3f3f6-c39d-42b6-aecb-921d89aaf328",
+              "name": "subject",
+              "value": "Commission complaint escalation - Aligarh AO",
+              "type": "string"
+            },
+            {
+              "id": "f85a8a0a-36f2-4f44-968d-fd5896430860",
+              "name": "from_email",
+              "value": "customer.success@inprime.in",
+              "type": "string"
+            },
+            {
+              "id": "79c77032-54bc-479f-bd70-47d58ba28204",
+              "name": "received_date",
+              "value": "2026-05-23",
+              "type": "string"
+            },
+            {
+              "id": "6487e286-b3bd-4645-9256-b458734f626c",
+              "name": "body",
+              "value": "Customer from Aligarh has complained that RO Aman Kumar collected Rs 7000 as commission for arranging a higher ticket loan from another institution. Customer has requested refund and strict action. Regional team needs to investigate.",
+              "type": "string"
+            },
+            {
+              "id": "abf24299-7261-4e35-a35a-9d6cb17dd462",
+              "name": "ao_name",
+              "value": "Aligarh AO",
+              "type": "string"
+            },
+            {
+              "id": "36b3623f-19a9-4179-b8d6-438991214cae",
+              "name": "ro_name",
+              "value": "Aman Kumar",
+              "type": "string"
+            },
+            {
+              "id": "390ee5fc-f36e-4aa7-9813-6672af8e1d51",
+              "name": "employee_involvement",
+              "value": "Direct",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "e331ae39-e6e6-4000-af61-3f6679e84ca7",
+      "name": "Sample Escalation Email"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are an escalation analysis assistant.\n\nAnalyze the escalation and provide:\n1. Severity (Low/Medium/High)\n2. Short Issue Summary\n3. Suggested Owner Team\n\nEscalation Details:\n{{ $json.body }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "32eded82-9b6e-4317-a65b-9a35b886a31f",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1-G0kJbdwG4yA4LfMdby6emxuPs50oSOetmjlDNBo2pQ",
+          "mode": "list",
+          "cachedResultName": "Commission Escalation Tracker - Project A",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-G0kJbdwG4yA4LfMdby6emxuPs50oSOetmjlDNBo2pQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-G0kJbdwG4yA4LfMdby6emxuPs50oSOetmjlDNBo2pQ/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Received Date": "2026-05-23",
+            "Area Office Name": "Aligarh AO",
+            "Employee Involved": "Aman Kumar",
+            "Severity": "High",
+            "Status": "Open",
+            "Email Subject": "Commission complaint escalation - Aligarh AO",
+            "Case ID": "COMM-001",
+            "SLA Due Date": "2026-05-24",
+            "Owner Team": "Regional Risk Team"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Case ID",
+              "displayName": "Case ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Received Date",
+              "displayName": "Received Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer Name",
+              "displayName": "Customer Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer Mobile",
+              "displayName": "Customer Mobile",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Area Office Name",
+              "displayName": "Area Office Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Employee Involved",
+              "displayName": "Employee Involved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Amount",
+              "displayName": "Amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Issue Summary",
+              "displayName": "Issue Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Severity",
+              "displayName": "Severity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Owner Team",
+              "displayName": "Owner Team",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SLA Due Date",
+              "displayName": "SLA Due Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last Escalated On",
+              "displayName": "Last Escalated On",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email Subject",
+              "displayName": "Email Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email Body",
+              "displayName": "Email Body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        768,
+        0
+      ],
+      "id": "ccbc851b-8ee1-4a7f-a1ce-20c5a43ebcbe",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4sHfM3gBUPurefwb",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Sample Escalation Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample Escalation Email": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1913fe76-5b18-4dd0-8a47-833444899fe7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3d77b1cb5ae78196eeb915f7521007ec8edd99f44958c630f5c2499303d3b35f"
+  },
+  "id": "BQ0K7ouvE2vNKsPS",
+  "tags": []
+}
