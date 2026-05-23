@@ -79,10 +79,18 @@ The OpenAI node analyzes escalation content and extracts:
 
 ---
 
+## SLA Re-escalation Logic
+
+The workflow includes SLA-based re-escalation using:
+- Wait Node
+- IF Condition
+- Automated Gmail Reminder
+
+In the demo workflow, the wait duration is configured as 30 seconds for testing purposes. In production, this can be extended to 24 hours or business-defined SLA durations.
+
 ## Future Enhancements
 
 - Gmail Trigger Integration
-- SLA-based Auto Re-escalation
 - CRM Ticketing Integration
 - Leadership Dashboard
 - Automated Reminder Notifications
